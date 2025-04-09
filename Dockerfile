@@ -12,4 +12,5 @@ ENV PORT=8080
 EXPOSE 8080
 
 # Tell Spring Boot to bind to Render's port
-CMD ["java", "-Dserver.port=$PORT", "-jar", "app.war"]
+CMD ["java", "-jar", "app.jar"]
+
