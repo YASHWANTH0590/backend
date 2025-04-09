@@ -8,9 +8,8 @@ WORKDIR /app
 COPY --from=build /app/target/heritage-backend-0.0.1-SNAPSHOT.war app.war
 
 # Read the port from Render and expose it
-ENV PORT=8080
+ENV PORT 8080
 EXPOSE 8080
 
-# Tell Spring Boot to bind to Render's port
-CMD ["java", "-jar", "app.jar"]
-
+# Tell Spring Boot to run the WAR file
+CMD ["java", "-jar", "app.war"]
