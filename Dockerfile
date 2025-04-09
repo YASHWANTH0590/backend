@@ -1,15 +1,15 @@
-# Use Maven to build the app
-FROM maven:3.8.5-openjdk-17 AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Use JDK to run the app
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17
 WORKDIR /app
-
-# Copy WAR from build stage
 COPY --from=build /app/target/heritage-backend-0.0.1-SNAPSHOT.war app.war
 
-# Run the WAR
-ENTRYPOINT ["java", "-jar", "app.war"]
+# Read the port from Render and expose it
+ENV PORT=8080
+EXPOSE 8080
+
+# Tell Spring Boot to bind to Render's port
+CMD ["java", "-Dserver.port=$PORT", "-jar", "app.war"]
